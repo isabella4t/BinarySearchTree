@@ -15,9 +15,11 @@ public class BinaryTree {
         Node roo = root;
         while (roo!=null){
             ree = roo;
-            if(key>roo.getKey()) roo = roo.getLchild();
+            if(key>roo.getKey()) roo = roo.getRchild();
             else roo = roo.getLchild();
         }
+
+        //current issue, it only goes to the left
         return ree;
     }
     public void delete(Node a){
