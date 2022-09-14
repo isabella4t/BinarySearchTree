@@ -41,20 +41,35 @@ public class Node {
 
     public Node minimum(){
         Node x = this;
-        while(getLchild() != null){
+        while(x.getLchild() != null){
             x = x.getLchild();
         }
         return x;
     }
 
-    public Node successor(){
-        if(getRchild()!=null) return getRchild();
+    public Node successor(){ //if no right children, find parent that is also a left child
+        Node ret = this;
+        if(ret.getRchild()!=null) return ret.getRchild().minimum();
 
-        Node x = getParent();
-        while(x!=null&&this.getKey()>x.getKey()){
-            x = x.getParent();
+        Node up = ret.getParent();
+      //  if(up!=null&&ret==up.getLchild()) return up;
+        while(up !=null && ret == up.getRchild()){
+            ret = up;
+            up = ret.getParent();
         }
-        return x;
-
+        return up;
     }
+
+    public void printWalk(){
+        if(lchild!=null) lchild.printWalk();
+        System.out.println(" "+key);
+        if(rchild!=null) rchild.printWalk();
+    }
+    public int kidcount(){
+        int ret =0;
+        if(lchild!=null)ret++;
+        if(rchild!=null)ret++;
+        return ret;
+    }
+
 }

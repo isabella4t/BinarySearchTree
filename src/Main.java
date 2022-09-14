@@ -15,6 +15,7 @@ public class Main {
         testInsert();
         testMinimum();
         testSuccessor1();
+        testSuccessor2();
 
         System.out.print("passes: " + pass + " fails: " + fail);
     }
@@ -70,7 +71,6 @@ public class Main {
             LOGGER.log(Level.WARNING,"failed findInsertionNode, expected key 2, got key " + expectone.getKey());
 
         }
-
         Node expectthree = tree.findInsertNode(8);
         if(expectthree == three) pass++;
         else {
@@ -134,6 +134,7 @@ public class Main {
         Node three = new Node(4);
 
         BinaryTree tree = new BinaryTree();
+        tree.root = three;
 
         tree.insert(one);
         tree.insert(two);
@@ -149,51 +150,80 @@ public class Main {
     public static void testSuccessor1(){
         Node one = new Node(2);
         Node two = new Node(3);
+        Node three = new Node(3);
+        Node four = new Node(3);
+        Node five = new Node (4);
 
         BinaryTree tree = new BinaryTree();
 
         tree.insert(one);
         tree.insert(two);
+        tree.insert(three);
+        tree.insert(four);
+        tree.insert(five);
 
         Node suc = one.successor();
-        if(suc == two)pass++;
+        if(suc == four)pass++;
         else{
             fail++;
-            LOGGER.log(Level.WARNING,"failed successor");
+            LOGGER.log(Level.WARNING,"failed successor, expected key 3, got key" + suc.getKey());
+        }
+        suc = four.successor();
+        if(suc == three)pass++;
+        else{
+            fail++;
+            LOGGER.log(Level.WARNING,"failed successor, expected key 3, got key" + suc.getKey());
+        }
+        suc = five.successor();
+        if(suc == null)pass++;
+        else{
+            fail++;
+            LOGGER.log(Level.WARNING,"failed successor, expected key null, got key" + suc.getKey());
+        }
+    }
+    public static void testSuccessor2(){
+        Node a = new Node(4);
+        BinaryTree tree = new BinaryTree();
+        tree.root = a;
+
+        Node b = new Node(1);
+        Node c = new Node(1);
+        Node d = new Node(2);
+        Node e =  new Node(3);
+        Node f =  new Node(3);
+        Node g = new Node(4);
+        Node h = new Node(5);
+        Node i =  new Node(6);
+
+        tree.insert(b);
+        tree.insert(c);
+        tree.insert(d);
+        tree.insert(e);
+        tree.insert(f);
+        tree.insert(g);
+        tree.insert(h);
+        tree.insert(i);
+
+        Node suce = e.successor();
+        if(suce == g)pass++;
+        else{
+            fail++;
+            LOGGER.log(Level.WARNING,"failed successor, expected key 4, got key " + suce.getKey());
         }
 
-    }
-/*
-    public static boolean testSearchne(){
-        Node fe = new Node(3);
-        BinaryTree fl = new BinaryTree();
-        fl.insert(fe);
-        return fl.search(3)==fe;
-    }
-    public static boolean testSearchtw(){
-        Node fe = new Node(3);
-        Node ge = new Node(4);
-        BinaryTree fl = new BinaryTree();
-        fl.insert(fe);
-        fl.insert(ge);
-        return fl.search(3)==fe;
-    }
+        Node sucf = f.successor();
+        if(sucf == e)pass++;
+        else{
+            fail++;
+            LOGGER.log(Level.WARNING,"failed successor, expected key 3, got key" + sucf.getKey());
+        }
 
-    public static boolean testSearch(){
-        BinaryTree fl = new BinaryTree();
-        //fl.search(3);
-        return fl.search(3)==null;
+        Node sucg = g.successor();
+        if(sucg == tree.root)pass++;
+        else{
+            fail++;
+            LOGGER.log(Level.WARNING,"failed successor, expected key 4, got key" + sucg.getKey());
+        }
     }
-
-//also tests getter
-    public static boolean testSetter(){
-        Node fe = new Node(3);
-        Node ge = new Node(4);
-        fe.setnext(ge);
-        return fe.getnext().getKey() == 4;
-    }
-
-
- */
 
 }

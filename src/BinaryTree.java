@@ -3,9 +3,11 @@ public class BinaryTree {
 
     public BinaryTree(){}
     public void insert(Node nee){
+        if(nee==null) return;
         Node newParent = findInsertNode(nee.getKey());
         if(newParent == null) root = nee;
         else {
+            nee.setParent(newParent);
             if(nee.getKey()>newParent.getKey()) newParent.setRchild(nee);
             else newParent.setLchild(nee);
         }
@@ -22,6 +24,29 @@ public class BinaryTree {
         //current issue, it only goes to the left
         return ree;
     }
+
+    public boolean childless(Node t){
+        return (t.getLchild()==null&&t.getRchild()==null);
+    }
+    public boolean onekid (Node t){
+        return (t.getLchild()!=null&&t.getRchild()!=null&&childless(t)==false);
+    }
+
+    //makes parent into null
+    public void scrubParent(Node a){
+        if(a==null) return;
+        Node p = a.getParent();
+        if(p==null) root = null;
+        else{
+            if(a==p.getRchild()) p.setRchild(null);
+            else p.setLchild(null);
+        }
+    }
+
+    public void spliceOut(Node a){
+
+    }
+
     public void delete(Node a){
         if (a.getParent() != null){
             a.getParent().setLchild(a.getLchild()); //moves the next one down
