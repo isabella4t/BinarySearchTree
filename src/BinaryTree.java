@@ -29,10 +29,10 @@ public class BinaryTree {
         return (t.getLchild()==null&&t.getRchild()==null);
     }
     public boolean onekid (Node t){
-        return (t.getLchild()!=null&&t.getRchild()!=null&&childless(t)==false);
+        return ((t.getLchild()!=null||t.getRchild()!=null)&&!childless(t));
     }
 
-    //makes parent into null
+    //scrubs nodes with no children
     public void scrubParent(Node a){
         if(a==null) return;
         Node p = a.getParent();
@@ -42,21 +42,36 @@ public class BinaryTree {
             else p.setLchild(null);
         }
     }
-
+//for nodes with less than 2 children
     public void spliceOut(Node a){
+        Node kid = a.getRchild();
+        Node par = a.getParent();
+        if(kid==null) kid = a.getLchild();
 
+        if(kid !=null) kid.setParent(par);
+
+        if(par ==null) root = kid;
+        else{
+            if(a==par.getRchild())par.setRchild(kid);
+            else par.setLchild(kid);
+        }
+    }
+//for nodes with 2 children
+    public void rotateOut(Node a){
+        if (a==null) return;
+        Node suc = a.successor();
+        spliceOut(suc);
+        a.setKey(suc.getKey());
     }
 
     public void delete(Node a){
-        if (a.getParent() != null){
-            a.getParent().setLchild(a.getLchild()); //moves the next one down
-        }
-        else{
-             root = a.getLchild();
-        }
-        if(a.getLchild()!=null){
-            a.getLchild().setParent(a.getParent());
-        }
+       System.out.println("Deleting: " + a);
+       if(childless(a)){
+           scrubParent(a);
+           return;
+       }
+       if(onekid(a))spliceOut(a);
+       else rotateOut(a);
     }
 /*
     public Node search(Node x, int key){

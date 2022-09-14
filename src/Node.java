@@ -7,6 +7,8 @@ public class Node {
     public Node(int _key){
         key = _key;
     }
+
+    public void setKey(int key_){key = key_;}
     public int getKey(){
         return key;
     }
