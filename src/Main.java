@@ -394,11 +394,27 @@ public class Main {
         tree.insert(e);
         tree.insert(f);
 
+        System.out.println ("Before" +  tree.root.stringWalk());
+
         tree.delete(c);
+
+        System.out.println("After" +  tree.root.stringWalk());
         if (tree.root.getRchild().getKey() == 16 && c.getLchild()==d) pass++;
         else {
             fail++;
             LOGGER.log(Level.WARNING, "failed testRotate1, tree.root.getRchild() = " + tree.root.getRchild().getKey());
         }
+    }
+
+    //recursive like the printwalk and stringwalk
+    public static ArrayList<Integer> sortarray(Node thisNode) {
+        ArrayList<Integer> ree = new ArrayList<Integer>();
+        if (thisNode == null) return ree;
+        Node lchild = thisNode.getLchild();
+        Node rchild = thisNode.getRchild();
+        if (lchild != null) ree.addAll(sortarray(lchild));
+        ree.add(thisNode.getKey());
+        if (rchild != null) ree.addAll(sortarray(rchild));
+        return ree;
     }
 }

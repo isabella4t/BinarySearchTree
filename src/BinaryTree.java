@@ -24,10 +24,11 @@ public class BinaryTree {
         //current issue, it only goes to the left
         return ree;
     }
-
+    //helper
     public boolean childless(Node t){
         return (t.getLchild()==null&&t.getRchild()==null);
     }
+    //helper
     public boolean onekid (Node t){
         return ((t.getLchild()!=null||t.getRchild()!=null)&&!childless(t));
     }
@@ -42,7 +43,7 @@ public class BinaryTree {
             else p.setLchild(null);
         }
     }
-//for nodes with less than 2 children
+    //for nodes with less than 2 children
     public void spliceOut(Node a){
         Node kid = a.getRchild();
         Node par = a.getParent();
@@ -56,14 +57,14 @@ public class BinaryTree {
             else par.setLchild(kid);
         }
     }
-//for nodes with 2 children
+    //for nodes with 2 children
     public void rotateOut(Node a){
         if (a==null) return;
         Node suc = a.successor();
         spliceOut(suc);
         a.setKey(suc.getKey());
     }
-
+    // all 3 delete methods
     public void delete(Node a){
        System.out.println("Deleting: " + a);
        if(childless(a)){

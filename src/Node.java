@@ -49,6 +49,7 @@ public class Node {
         return x;
     }
 
+    //finds next biggest
     public Node successor(){ //if no right children, find parent that is also a left child
         Node ret = this;
         if(ret.getRchild()!=null) return ret.getRchild().minimum();
@@ -66,6 +67,14 @@ public class Node {
         if(lchild!=null) lchild.printWalk();
         System.out.println(" "+key);
         if(rchild!=null) rchild.printWalk();
+    }
+
+    public String stringWalk(){
+        String ree = "";
+        if(lchild!=null) lchild.stringWalk();
+        ree = " "+key + "\n";
+        if(rchild!=null) rchild.stringWalk();
+        return ree;
     }
     public int kidcount(){
         int ret =0;
