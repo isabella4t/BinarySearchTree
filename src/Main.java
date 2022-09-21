@@ -1,6 +1,8 @@
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.*;
+import static java.lang.Math.sqrt;
+
 
 public class Main {
     private static Logger LOGGER = Logger.getLogger(Main.class.getName());
@@ -8,7 +10,25 @@ public class Main {
     static int fail = 0;
 
     public static void main(String[] args){
+        int n = 100000;
 
+        Long startIn=System.currentTimeMillis();
+        testTreeInsert(deletehelper(n),n);
+        Long endIn=System.currentTimeMillis();
+        double tim=(endIn-startIn)/1000.0;
+        System.out.println(tim +  " insert");
+
+        Long startDel=System.currentTimeMillis();
+        testTreeDelete(deletehelper(n),n);
+        Long endDel=System.currentTimeMillis();
+
+        tim=(endDel-startDel)/1000.0;
+        System.out.println(tim + " delete");
+
+
+
+
+/*
         testConstructor();
         testSet();
         testInsertNode();
@@ -23,8 +43,43 @@ public class Main {
         testDelete1();
         testDelete2();
         testDelete3();
+        testPrintWalk();
 
         System.out.print("passes: " + pass + " fails: " + fail);
+
+ */
+    }
+    public void createTreehelper1(){
+
+    }
+
+    public static void testTreeInsert(BinaryTree m, int _n){
+        int n = _n;
+
+        //insert
+        for (int i = 0; i<n; i++){
+            m.insert(new Node((int)(Math.random()*n)));
+        }
+
+        return;
+    }
+
+    public static BinaryTree deletehelper(int n){
+        BinaryTree ne = new BinaryTree();
+
+        //insert
+        for (int i = 0; i<n; i++){
+            ne.insert(new Node((int)(Math.random()*n)));
+        }
+        return ne;
+    }
+
+    public static void testTreeDelete(BinaryTree m, int n){
+
+        //delete
+        for (int i = 0; i<n; i++){
+            m.delete(m.root.minimum());
+        }
     }
 
     public static void testConstructor(){
@@ -387,24 +442,43 @@ public class Main {
         Node d = new Node(12);
         Node e = new Node(16);
         Node f = new Node(13);
-
         tree.insert(b);
         tree.insert(c);
         tree.insert(d);
         tree.insert(e);
         tree.insert(f);
-
-        System.out.println ("Before" +  tree.root.stringWalk());
-
         tree.delete(c);
-
-        System.out.println("After" +  tree.root.stringWalk());
         if (tree.root.getRchild().getKey() == 16 && c.getLchild()==d) pass++;
         else {
             fail++;
             LOGGER.log(Level.WARNING, "failed testRotate1, tree.root.getRchild() = " + tree.root.getRchild().getKey());
         }
     }
+    public static void testPrintWalk(){
+        Node a = new Node(9);
+        BinaryTree tree = new BinaryTree();
+        tree.root = a;
+        Node b = new Node(7);
+        Node c = new Node(14);
+        Node d = new Node(12);
+        Node e = new Node(16);
+        Node f = new Node(13);
+        tree.insert(b);
+        tree.insert(c);
+        tree.insert(d);
+        tree.insert(e);
+        tree.insert(f);
+        a.printWalk();
+    }
+    /*
+    public static void testTreeDepth(){
+        BinaryTree ne = new BinaryTree();
+        if(ne.depth()==0){
+
+        }
+    }
+
+     */
 
     //recursive like the printwalk and stringwalk
     public static ArrayList<Integer> sortarray(Node thisNode) {

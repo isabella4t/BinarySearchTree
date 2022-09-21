@@ -32,7 +32,7 @@ public class BinaryTree {
     public boolean onekid (Node t){
         return ((t.getLchild()!=null||t.getRchild()!=null)&&!childless(t));
     }
-
+    public Node getRoot(){return root;}
     //scrubs nodes with no children
     public void scrubParent(Node a){
         if(a==null) return;
@@ -66,7 +66,7 @@ public class BinaryTree {
     }
     // all 3 delete methods
     public void delete(Node a){
-       System.out.println("Deleting: " + a);
+      // System.out.println("Deleting: " + a);
        if(childless(a)){
            scrubParent(a);
            return;
@@ -74,6 +74,7 @@ public class BinaryTree {
        if(onekid(a))spliceOut(a);
        else rotateOut(a);
     }
+
 /*
     public Node search(Node x, int key){
         while(x != null && x.getKey() !=key){
