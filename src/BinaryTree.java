@@ -5,10 +5,13 @@ public class BinaryTree {
     public void insert(Node nee){
         if(nee==null) return;
         Node newParent = findInsertNode(nee.getKey());
+        //if it is first node, it is root
         if(newParent == null) root = nee;
         else {
             nee.setParent(newParent);
+            // greater than parent, it goes right
             if(nee.getKey()>newParent.getKey()) newParent.setRchild(nee);
+            // smaller than parent, goes left
             else newParent.setLchild(nee);
         }
     }
@@ -17,11 +20,11 @@ public class BinaryTree {
         Node roo = root;
         while (roo!=null){
             ree = roo;
+            //determines if it should go left or right based on > or <
             if(key>roo.getKey()) roo = roo.getRchild();
             else roo = roo.getLchild();
         }
 
-        //current issue, it only goes to the left
         return ree;
     }
     //helper
@@ -33,6 +36,7 @@ public class BinaryTree {
         return ((t.getLchild()!=null||t.getRchild()!=null)&&!childless(t));
     }
     public Node getRoot(){return root;}
+    
     //scrubs nodes with no children
     public void scrubParent(Node a){
         if(a==null) return;
